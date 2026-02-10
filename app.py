@@ -1,8 +1,3 @@
-"""
-Tomato Shelf Life Prediction Web App
-Uses a trained Random Forest model to predict shelf life based on various factors.
-"""
-
 import streamlit as st
 import pandas as pd
 import joblib
@@ -25,8 +20,8 @@ st.markdown("""
     .main-header {
         text-align: center;
         color: #E63946;
-        font-size: 5.0rem;
-        font-weight: 700;
+        font-size: 1.3rem;
+        font-weight: 1000;
         margin-bottom: 0.3rem;
         letter-spacing: -0.5px;
         animation: fadeInDown 0.6s ease-out;
