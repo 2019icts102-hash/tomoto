@@ -18,41 +18,184 @@ st.set_page_config(
 # Custom CSS for styling
 st.markdown("""
 <style>
+    * {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
     .main-header {
         text-align: center;
         color: #E63946;
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+        font-size: 5.0rem;
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+        letter-spacing: -0.5px;
+        animation: fadeInDown 0.6s ease-out;
     }
+    
     .sub-header {
         text-align: center;
-        color: #666;
-        font-size: 1rem;
-        margin-bottom: 2rem;
+        color: #555;
+        font-size: 1.05rem;
+        margin-bottom: 2.5rem;
+        font-weight: 400;
+        letter-spacing: 0.3px;
+        animation: fadeInUp 0.6s ease-out 0.1s both;
     }
-    .prediction-box {
-        background: linear-gradient(135deg, #E63946 0%, #F1FAEE 100%);
-        padding: 2rem;
-        border-radius: 15px;
-        text-align: center;
-        margin: 1.5rem 0;
-    }
-    .prediction-value {
-        font-size: 3rem;
-        font-weight: bold;
+    
+    .section-title {
         color: #1D3557;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 1.5rem 0 1rem 0;
+        border-bottom: 2px solid #E63946;
+        padding-bottom: 0.5rem;
     }
+    
+    .prediction-box {
+        background: linear-gradient(135deg, #E63946 0%, #FF6B6B 100%);
+        padding: 2.5rem;
+        border-radius: 20px;
+        text-align: center;
+        margin: 2rem 0;
+        box-shadow: 0 10px 40px rgba(230, 57, 70, 0.2);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        border: 2px solid rgba(255, 107, 107, 0.5);
+    }
+    
+    .prediction-box:hover {
+        box-shadow: 0 15px 50px rgba(230, 57, 70, 0.3);
+        transform: translateY(-5px);
+    }
+    
+    .prediction-value {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: #FFFFFF;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+        animation: scaleIn 0.5s ease-out;
+    }
+    
     .prediction-label {
-        font-size: 1.2rem;
-        color: #457B9D;
+        font-size: 1.1rem;
+        color: #F1FAEE;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
+    
     .info-card {
-        background-color: #F1FAEE;
-        padding: 1rem;
+        background: linear-gradient(135deg, #F1FAEE 0%, #FFFFFF 100%);
+        padding: 1.5rem;
+        border-radius: 15px;
+        border-left: 5px solid #E63946;
+        margin: 1.2rem 0;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        border-top: 1px solid rgba(230, 57, 70, 0.1);
+    }
+    
+    .info-card:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        transform: translateX(5px);
+    }
+    
+    .info-card strong {
+        color: #1D3557;
+        font-weight: 600;
+    }
+    
+    /* Input and control styling */
+    .streamlit-select {
+        border: 2px solid #E8E8E8;
         border-radius: 10px;
-        border-left: 4px solid #E63946;
-        margin: 1rem 0;
+        transition: all 0.3s ease;
+    }
+    
+    .streamlit-select:focus {
+        border-color: #E63946;
+        box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+    }
+    
+    /* Button styling */
+    .stButton > button {
+        background: linear-gradient(135deg, #E63946 0%, #D62828 100%);
+        color: white;
+        font-weight: 600;
+        padding: 0.75rem 2rem;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+        transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        letter-spacing: 0.5px;
+    }
+    
+    .stButton > button:hover {
+        box-shadow: 0 8px 25px rgba(230, 57, 70, 0.4);
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, #D62828 0%, #B71C1C 100%);
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0);
+    }
+    
+    /* Horizontal divider */
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(to right, transparent, #E63946, transparent);
+        margin: 2rem 0;
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderContent {
+        animation: slideDown 0.3s ease-out;
+    }
+    
+    /* Animations */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            max-height: 0;
+        }
+        to {
+            opacity: 1;
+            max-height: 1000px;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -80,8 +223,8 @@ def load_model():
 # Define the feature columns (must match training data)
 FEATURE_COLUMNS = [
     'Maturity_Stage', 'Temp_C', 'Humidity_Pct', 'Transport_KM',
-    'Packaging_Plastic Crate', 'Packaging_Polysack Bag', 'Packaging_Wooden Crate',
-    'Variety_Lanka Sour', 'Variety_T-146', 'Variety_T-245', 'Variety_Thilina Tomato'
+    'Variety_Lanka Sour', 'Variety_T-146', 'Variety_T-245', 'Variety_Thilina Tomato',
+    'Packaging_Plastic Crate', 'Packaging_Polysack Bag', 'Packaging_Wooden Crate'
 ]
 
 # Variety and Packaging options
@@ -165,26 +308,24 @@ with env_col2:
 st.markdown("---")
 
 if st.button("🔮 Predict Shelf Life", type="primary", use_container_width=True):
-    # Prepare input data
-    input_data = pd.DataFrame({
-        "Variety": [variety],
-        "Maturity_Stage": [maturity_stage],
-        "Temp_C": [temperature],
-        "Humidity_Pct": [humidity],
-        "Packaging": [packaging],
-        "Transport_KM": [transport_km]
-    })
+    # Prepare input data with explicit one-hot encoding
+    input_dict = {
+        'Maturity_Stage': maturity_stage,
+        'Temp_C': temperature,
+        'Humidity_Pct': humidity,
+        'Transport_KM': transport_km,
+    }
     
-    # One-hot encode
-    input_encoded = pd.get_dummies(input_data)
+    # Manually create one-hot encoded columns for Packaging
+    for pkg_type in PACKAGING_TYPES:
+        input_dict[f'Packaging_{pkg_type}'] = 1 if packaging == pkg_type else 0
     
-    # Add missing columns with 0
-    for col in FEATURE_COLUMNS:
-        if col not in input_encoded.columns:
-            input_encoded[col] = 0
+    # Manually create one-hot encoded columns for Variety
+    for var_type in VARIETIES:
+        input_dict[f'Variety_{var_type}'] = 1 if variety == var_type else 0
     
-    # Ensure correct column order
-    input_encoded = input_encoded[FEATURE_COLUMNS]
+    # Create DataFrame with all required columns in correct order
+    input_encoded = pd.DataFrame([input_dict])[FEATURE_COLUMNS]
     
     # Make prediction
     prediction = model.predict(input_encoded)[0]
@@ -221,23 +362,3 @@ if st.button("🔮 Predict Shelf Life", type="primary", use_container_width=True
         
         if transport_km > 150:
             st.warning("⚠️ Long transport distance may affect quality")
-
-# Footer with model info
-st.markdown("---")
-with st.expander("ℹ️ About This Model"):
-    st.markdown("""
-    <div class="info-card">
-    <strong>Model:</strong> Random Forest Regressor<br>
-    <strong>Dataset:</strong> Sri Lanka Tomato Varieties<br>
-    <strong>Features:</strong> Variety, Maturity Stage, Temperature, Humidity, Packaging, Transport Distance<br>
-    <strong>Performance:</strong> R² Score: 0.87, MAE: 0.94 days
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    **Sri Lanka Tomato Varieties:**
-    - **Lanka Sour**: Local variety with tangy flavor
-    - **T-146**: Hybrid variety with good yield
-    - **T-245**: Heat-tolerant hybrid
-    - **Thilina Tomato**: Popular commercial variety
-    """)
